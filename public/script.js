@@ -92,10 +92,10 @@ function readQR() {
         const result = data[0].symbol[0].data;
         const textarea = document.getElementById("outputTextarea");
         textarea.value = result;
-        
+
         const readResult = document.getElementById("readResult");
         readResult.classList.remove("hidden");
-        
+
         toggleCopyButton();
         lucide.createIcons();
       } else {
