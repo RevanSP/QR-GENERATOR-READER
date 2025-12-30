@@ -172,3 +172,32 @@ toggleReadButton();
 toggleCopyButton();
 
 lucide.createIcons();
+
+const inputText = document.getElementById("inputText");
+const generateButton = document.getElementById("generateButton");
+
+function toggleGenerateButton() {
+  if (inputText && inputText.value.trim() !== "") {
+    generateButton.disabled = false;
+    generateButton.classList.remove(
+      "bg-green-300",
+      "opacity-70",
+      "cursor-not-allowed"
+    );
+    generateButton.classList.add("bg-green-500");
+  } else if (generateButton) {
+    generateButton.disabled = true;
+    generateButton.classList.remove("bg-green-500");
+    generateButton.classList.add(
+      "bg-green-300",
+      "opacity-70",
+      "cursor-not-allowed"
+    );
+  }
+}
+
+if (inputText) {
+  inputText.addEventListener("input", toggleGenerateButton);
+}
+
+toggleGenerateButton();
