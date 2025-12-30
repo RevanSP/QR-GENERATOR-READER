@@ -1,6 +1,10 @@
 const QR_CREATE_API = "https://api.qrserver.com/v1/create-qr-code/";
 const QR_READ_API = "https://api.qrserver.com/v1/read-qr-code/";
 
+document.addEventListener("DOMContentLoaded", () => {
+  lucide.createIcons();
+});
+
 function switchTab(mode) {
   const generateSection = document.getElementById("generateSection");
   const readSection = document.getElementById("readSection");
@@ -30,9 +34,6 @@ function switchTab(mode) {
 
   lucide.createIcons();
 }
-
-document.querySelectorAll("svg.lucide").forEach((svg) => svg.remove());
-lucide.createIcons();
 
 async function generateQR() {
   const text = document.getElementById("inputText").value.trim();
