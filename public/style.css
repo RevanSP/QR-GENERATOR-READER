@@ -1,3 +1,33 @@
 * {
   font-family: 'Google Sans', sans-serif;
 }
+
+body {
+  width: 100%;
+  height: 100%;
+  --color: #E1E1E1;
+  background-image: linear-gradient(0deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%, transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%, transparent);
+  background-size: 55px 55px;
+}
+
+.neobrutalism {
+  box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 1);
+  border: 2px solid black;
+}
+
+.neobrutalism-clickable {
+  box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 1);
+  border: 2px solid black;
+  transition: all 0.2s ease-in-out;
+}
+
+.neobrutalism-clickable:hover {
+  box-shadow: 1px 1px 0px 0px rgba(0, 0, 0, 1);
+  transform: translate(2px, 2px);
+}
+
+.neobrutalism-clickable:active {
+  box-shadow: none;
+  transform: translate(3px, 3px);
+}
