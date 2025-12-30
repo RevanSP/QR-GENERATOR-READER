@@ -1,10 +1,6 @@
 const QR_CREATE_API = "https://api.qrserver.com/v1/create-qr-code/";
 const QR_READ_API = "https://api.qrserver.com/v1/read-qr-code/";
 
-document.addEventListener("DOMContentLoaded", () => {
-  lucide.createIcons();
-});
-
 function switchTab(mode) {
   const generateSection = document.getElementById("generateSection");
   const readSection = document.getElementById("readSection");
@@ -32,7 +28,11 @@ function switchTab(mode) {
     tabDeveloper.classList.add("tab-active");
   }
 
-  lucide.createIcons();
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      lucide.createIcons();
+    });
+  });
 }
 
 async function generateQR() {
@@ -65,8 +65,6 @@ async function generateQR() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(blobUrl);
-
-    lucide.createIcons();
   } catch (error) {
     console.error("Error generating QR:", error);
     alert("Failed to generate or download QR code. Please try again.");
@@ -94,6 +92,10 @@ function readQR() {
         const result = data[0].symbol[0].data;
         const textarea = document.getElementById("outputTextarea");
         textarea.value = result;
+        
+        const readResult = document.getElementById("readResult");
+        readResult.classList.remove("hidden");
+        
         toggleCopyButton();
         lucide.createIcons();
       } else {
@@ -116,10 +118,9 @@ function copyResult() {
 const fileInput = document.getElementById("fileInput");
 const readButton = document.getElementById("readButton");
 const outputTextarea = document.getElementById("outputTextarea");
-const copyButton = document.getElementById("copyButton");
 
 function toggleReadButton() {
-  if (fileInput.files.length > 0) {
+  if (fileInput && fileInput.files.length > 0) {
     readButton.disabled = false;
     readButton.classList.remove(
       "bg-green-300",
@@ -127,7 +128,7 @@ function toggleReadButton() {
       "cursor-not-allowed"
     );
     readButton.classList.add("bg-green-500");
-  } else {
+  } else if (readButton) {
     readButton.disabled = true;
     readButton.classList.remove("bg-green-500");
     readButton.classList.add(
@@ -139,7 +140,8 @@ function toggleReadButton() {
 }
 
 function toggleCopyButton() {
-  if (outputTextarea.value.trim() !== "") {
+  const copyButton = document.querySelector("#readResult button");
+  if (copyButton && outputTextarea && outputTextarea.value.trim() !== "") {
     copyButton.disabled = false;
     copyButton.classList.remove(
       "bg-green-300",
@@ -147,7 +149,7 @@ function toggleCopyButton() {
       "cursor-not-allowed"
     );
     copyButton.classList.add("bg-green-500");
-  } else {
+  } else if (copyButton) {
     copyButton.disabled = true;
     copyButton.classList.remove("bg-green-500");
     copyButton.classList.add(
@@ -158,8 +160,13 @@ function toggleCopyButton() {
   }
 }
 
-fileInput.addEventListener("change", toggleReadButton);
-outputTextarea.addEventListener("input", toggleCopyButton);
+if (fileInput) {
+  fileInput.addEventListener("change", toggleReadButton);
+}
+
+if (outputTextarea) {
+  outputTextarea.addEventListener("input", toggleCopyButton);
+}
 
 toggleReadButton();
 toggleCopyButton();
