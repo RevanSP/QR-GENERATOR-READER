@@ -31,6 +31,9 @@ function switchTab(mode) {
   lucide.createIcons();
 }
 
+document.querySelectorAll("svg.lucide").forEach((svg) => svg.remove());
+lucide.createIcons();
+
 async function generateQR() {
   const text = document.getElementById("inputText").value.trim();
   if (!text) {
